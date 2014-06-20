@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link href="css/Estilo.css" rel="stylesheet" type="text/css"
+              media="all"></link>
+        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+    </h:head>
+    <h:body>
+        <ui:include src="cabecalho.xhtml"></ui:include>
+        <div id="container">
+            <h:form>
+                <fieldset>
+                    <legend>Dados da Categoria</legend>
+                    <h:panelGrid columns="2">   
+                        <h:outputLabel value="Descrição" for="txtDescricao" />
+                        <h:inputText id="txtDescricao" styleClass="form-control" value="#{categoriaBean.categoria.descricao}"/>
+                        <label>&nbsp; </label>
+                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{categoriaBean.gravar}"/>
+                    </h:panelGrid>
+                </fieldset>
+            </h:form>
+        </div>
+
+        <script src="js/funcoes.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </h:body>
+</html>

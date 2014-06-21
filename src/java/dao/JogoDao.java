@@ -6,6 +6,7 @@
 package dao;
 
 import funcoes.Conecta;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import model.Categoria;
 import model.Distribuidora;
 import model.Jogo;
@@ -32,7 +35,7 @@ public class JogoDao
         this.c = new Conecta();
     }
 
-    public String salvar(Jogo jogo)
+    public String salvar(Jogo jogo) throws IOException
     {
         if (!this.c.getMsg().equals("sucesso"))
         {
@@ -61,6 +64,8 @@ public class JogoDao
         try
         {
             this.c.getStm().execute(sql);
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect("listarJogos.xhtml");
             return "sucesso";
         }
         catch (SQLException ex)
@@ -85,7 +90,7 @@ public class JogoDao
                 + " dt.nome AS nomeDistribuidora, ot.descricao AS desObtencao"
                 + " FROM Jogo jo"
                 + " INNER JOIN Categoria ct ON (ct.idCategoria = jo.idCategoria)"
-                + " INNER JOIN Categoria sct ON (sct.idCategoria = jo.idSubCategoria)"
+                + " LEFT JOIN Categoria sct ON (sct.idCategoria = jo.idSubCategoria)"
                 + " INNER JOIN Distribuidora dt ON (dt.idDistribuidora = jo.idDistribuidora)"
                 + " INNER JOIN Obtencao ot ON (ot.idObtencao = jo.idObtencao)";
 

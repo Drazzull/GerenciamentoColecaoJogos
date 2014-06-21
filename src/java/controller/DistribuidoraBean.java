@@ -11,6 +11,7 @@ package controller;
  * @author Drazzull
  */
 import dao.DistribuidoraDao;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.Distribuidora;
@@ -25,7 +26,7 @@ public class DistribuidoraBean {
         return this.distribuidora;
     }
 
-    public void gravar() {
+    public void gravar() throws IOException {
         this.distribuidoraDao.salvar(this.getDistribuidora());
     }
     

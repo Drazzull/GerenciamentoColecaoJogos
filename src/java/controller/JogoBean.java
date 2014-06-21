@@ -13,6 +13,7 @@ import dao.CategoriaDao;
 import dao.DistribuidoraDao;
 import dao.JogoDao;
 import dao.ObtencaoDao;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.Categoria;
@@ -37,7 +38,7 @@ public class JogoBean
         return this.jogo;
     }
 
-    public void gravar()
+    public void gravar() throws IOException
     {
         this.jogoDao.salvar(this.getJogo());
     }

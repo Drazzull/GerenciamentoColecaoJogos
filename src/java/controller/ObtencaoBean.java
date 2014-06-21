@@ -11,6 +11,7 @@ package controller;
  * @author Drazzull
  */
 import dao.ObtencaoDao;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.Obtencao;
@@ -25,7 +26,7 @@ public class ObtencaoBean {
         return this.obtencao;
     }
 
-    public void gravar() {
+    public void gravar() throws IOException {
         this.obtencaoDao.salvar(this.getObtencao());
     }
     

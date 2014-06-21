@@ -6,10 +6,13 @@
 package dao;
 
 import funcoes.Conecta;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import model.Categoria;
 
 /**
@@ -26,7 +29,7 @@ public class CategoriaDao
         this.c = new Conecta();
     }
 
-    public String salvar(Categoria categoria)
+    public String salvar(Categoria categoria) throws IOException
     {
         if (!this.c.getMsg().equals("sucesso"))
         {
@@ -38,6 +41,8 @@ public class CategoriaDao
         try
         {
             this.c.getStm().execute(sql);
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect("listarCategorias.xhtml");
             return "sucesso";
         }
         catch (SQLException ex)

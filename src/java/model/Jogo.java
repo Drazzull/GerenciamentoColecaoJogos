@@ -6,7 +6,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -55,9 +57,13 @@ public class Jogo implements Serializable
         this.precoPago = precoPago;
     }
 
-    public char getEstado()
+    public String getEstado()
     {
-        return this.estado;
+        if (this.estado == 'N')
+        {
+            return "Normal";
+        }
+        return "Emprestado";
     }
 
     public void setEstado(char estado)
@@ -68,6 +74,16 @@ public class Jogo implements Serializable
     public Date getDataObtencao()
     {
         return this.dataObtencao;
+    }
+    
+    public String getDataObtencaoString()
+    {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(dataObtencao);
+        int ano = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH) + 1;
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        return String.format("%02d", dia) + "/" + String.format("%02d", mes) + "/" + String.format("%04d", ano);
     }
 
     public void setDataObtencao(Date dataObtencao)

@@ -11,6 +11,7 @@ package controller;
  * @author Drazzull
  */
 import dao.CategoriaDao;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.Categoria;
@@ -25,7 +26,7 @@ public class CategoriaBean {
         return this.categoria;
     }
 
-    public void gravar() {
+    public void gravar() throws IOException {
         this.categoriaDao.salvar(this.getCategoria());
     }
     

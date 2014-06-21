@@ -4,25 +4,26 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Gerenciamento de Jogos</title>
-        <link rel="stylesheet" type="text/css" href="css/Estilo.css"
-              media="all"></link>
-        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+        <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
     <h:body>
+        <c:set var="nav" value="I"/>
+
         <ui:include src="cabecalho.xhtml"></ui:include>
         <div id="container">
-            <h:outputText value="Sistema para gerenciamento de coleção de jogos,
+            <h:outputText style="text-align: center;" value="Sistema para gerenciamento de coleção de jogos,
                           com a opção de categorias, marcas, método de obtenção
                           e até possível lançamento de empréstimos de jogos para
                           amigos."></h:outputText>
         </div>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/funcoes.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"/>
+        <script src="js/funcoes.js"/>
+        <script src="js/bootstrap.min.js"/>
     </h:body>
 </html>
-

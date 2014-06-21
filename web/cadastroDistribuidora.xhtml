@@ -21,12 +21,12 @@ and open the template in the editor.
         <div id="container">
             <h:form>
                 <fieldset>
-                    <legend>Dados da Categoria</legend>
+                    <legend>Dados da Distribuidora</legend>
                     <h:panelGrid columns="2">   
-                        <h:outputLabel value="Descrição" for="txtDescricao" />
-                        <h:inputText id="txtDescricao" styleClass="form-control" maxlength="100" value="#{categoriaBean.categoria.descricao}"/>
+                        <h:outputLabel value="Nome" for="txtNome" />
+                        <h:inputText id="txtNome" styleClass="form-control" maxlength="100" value="#{distribuidoraBean.distribuidora.nome}"/>
                         <label>&nbsp; </label>
-                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{categoriaBean.gravar}"/>
+                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{distribuidoraBean.gravar}"/>
                     </h:panelGrid>
                 </fieldset>
             </h:form>

@@ -1,22 +1,39 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Gerenciamento de Jogos</title>
-        <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"></link>
-        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+        <link href="css/Estilo.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
     <h:body>
-        <ui:include src="cabecalho.xhtml"></ui:include>
+        <c:set var="nav" value="C" scope="session"/>
+        <ui:include src="cabecalho.xhtml"/>
         <div id="container">
-            <p>Teste de Método de Obtenção</p>
+            <h:form>
+                <fieldset>
+                    <legend>Dados do Método de Obtenção</legend>
+                    <h:panelGrid columns="2">   
+                        <h:outputLabel value="Descrição" for="txtDescricao" />
+                        <h:inputText id="txtDescricao" styleClass="form-control" maxlength="100" value="#{obtencaoBean.obtencao.descricao}"/>
+                        <label>&nbsp; </label>
+                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{obtencaoBean.gravar}"/>
+                    </h:panelGrid>
+                </fieldset>
+            </h:form>
         </div>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/funcoes.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"/>
+        <script src="js/funcoes.js"/>
+        <script src="js/bootstrap.min.js"/>
     </h:body>
 </html>
-

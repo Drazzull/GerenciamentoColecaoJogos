@@ -10,31 +10,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Categoria;
+import model.Obtencao;
 
 /**
  *
  * @author Drazzull
  */
-public class CategoriaDao
+public class ObtencaoDao
 {
 
     private final Conecta c;
 
-    public CategoriaDao()
+    public ObtencaoDao()
     {
         this.c = new Conecta();
     }
 
-    public String salvar(Categoria categoria)
+    public String salvar(Obtencao obtencao)
     {
         if (!this.c.getMsg().equals("sucesso"))
         {
             return ("erro:" + this.c.getMsg());
         }
 
-        String sql = "INSERT INTO Categoria (descricao)"
-                + " VALUES (\"" + categoria.getDescricao() + "\")";
+        String sql = "INSERT INTO Obtencao (descricao)"
+                + " VALUES (\"" + obtencao.getDescricao() + "\")";
         try
         {
             this.c.getStm().execute(sql);
@@ -44,11 +44,12 @@ public class CategoriaDao
         {
             return ("erro:" + ex.getMessage());
         }
+
     }
 
-    public List<Categoria> getCategoria()
+    public List<Obtencao> getObtencao()
     {
-        List<Categoria> lista = new ArrayList<>();
+        List<Obtencao> lista = new ArrayList<>();
 
         if (!this.c.getMsg().equals("sucesso"))
         {
@@ -56,7 +57,7 @@ public class CategoriaDao
         }
 
         // Vamos preparar o comando SQL:
-        String sql = "SELECT ct.* FROM Categoria ct";
+        String sql = "SELECT ot.* FROM Obtencao ot";
 
         // Definido o Statement, executamos o comando no banco de dados.
         ResultSet rs;
@@ -69,14 +70,14 @@ public class CategoriaDao
             while (rs.next())
             {
                 //leitura dos campos da tabela em variáveis
-                int id = rs.getInt("idCategoria");
+                int id = rs.getInt("idObtencao");
                 String descricao = rs.getString("descricao");
 
-                Categoria categoria = new Categoria();
-                categoria.setIdCategoria(id);
-                categoria.setDescricao(descricao);
+                Obtencao obtencao = new Obtencao();
+                obtencao.setIdObtencao(id);
+                obtencao.setDescricao(descricao);
 
-                lista.add(categoria);
+                lista.add(obtencao);
             }
         }
         catch (SQLException ex)
@@ -86,17 +87,17 @@ public class CategoriaDao
         return lista;
     }
 
-    public Categoria getCategoriaPorCodigo(Long codigo)
+    public Obtencao getObtencaoPorCodigo(Long codigo)
     {
-        Categoria categoria = new Categoria();
+        Obtencao obtencao = new Obtencao();
 
         if (!this.c.getMsg().equals("sucesso"))
         {
-            return categoria;
+            return obtencao;
         }
 
         // Vamos preparar o comando SQL:
-        String sql = "SELECT ct.* FROM Categoria ct WHERE ct.idCategoria =" + codigo;
+        String sql = "SELECT ot.* FROM Obtencao ot WHERE ot.idObtencao =" + codigo;
 
         // Definido o Statement, executamos o comando no banco de dados.
         ResultSet rs;
@@ -108,16 +109,16 @@ public class CategoriaDao
             while (rs.next())
             {
                 //leitura dos campos da tabela em variáveis
-                int id = rs.getInt("idCategoria");
+                int id = rs.getInt("idObtencao");
                 String descricao = rs.getString("descricao");
-                categoria.setIdCategoria(id);
-                categoria.setDescricao(descricao);
+                obtencao.setIdObtencao(id);
+                obtencao.setDescricao(descricao);
             }
         }
         catch (SQLException ex)
         {
 
         }
-        return categoria;
+        return obtencao;
     }
 }

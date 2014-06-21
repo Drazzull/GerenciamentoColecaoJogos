@@ -7,10 +7,10 @@ CREATE TABLE Categoria (
     PRIMARY KEY (idCategoria)
 );
 
-CREATE TABLE Marca (
-    idMarca INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE Distribuidora (
+    idDistribuidora INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    PRIMARY KEY (idMarca)
+    PRIMARY KEY (idDistribuidora)
 );
 
 CREATE TABLE Obtencao (
@@ -22,17 +22,20 @@ CREATE TABLE Obtencao (
 CREATE TABLE Jogo (
     idJogo INT NOT NULL AUTO_INCREMENT,
     idCategoria INT NOT NULL,
-    idMarca INT NOT NULL,
+    idSubCategoria INT,
+    idDistribuidora INT NOT NULL,
     idObtencao INT NOT NULL,
-    Nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
     precoPago DECIMAL(10, 2),
     estado CHAR(1),
     dataObtencao DATE,
     PRIMARY KEY (idJogo),
     FOREIGN KEY (idCategoria)
      REFERENCES Categoria (idCategoria),
-    FOREIGN KEY (idMarca)
-     REFERENCES Marca (idMarca),
+    FOREIGN KEY (idSubCategoria)
+     REFERENCES Categoria (idCategoria),
+    FOREIGN KEY (idDistribuidora)
+     REFERENCES Distribuidora (idDistribuidora),
     FOREIGN KEY (idObtencao)
      REFERENCES Obtencao (idObtencao)
 );
@@ -47,4 +50,5 @@ CREATE TABLE Emprestimo (
      REFERENCES Jogo (idJogo)
 );
 
-SELECT * FROM Jogo;
+SELECT * FROM dbGerenciamentoColecaoJogos.Jogo;
+SELECT * FROM dbGerenciamentoColecaoJogos.Categoria;

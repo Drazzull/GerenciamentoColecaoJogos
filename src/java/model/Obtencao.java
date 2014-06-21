@@ -11,20 +11,20 @@ import java.util.Objects;
  *
  * @author Drazzull
  */
-public class Categoria
+public class Obtencao
 {
 
-    private Integer idCategoria;
+    private Integer idObtencao;
     private String descricao;
 
-    public Integer getIdCategoria()
+    public Integer getIdObtencao()
     {
-        return this.idCategoria;
+        return this.idObtencao;
     }
 
-    public void setIdCategoria(Integer idCategoria)
+    public void setIdObtencao(Integer idObtencao)
     {
-        this.idCategoria = idCategoria;
+        this.idObtencao = idObtencao;
     }
 
     public String getDescricao()
@@ -40,8 +40,8 @@ public class Categoria
     @Override
     public int hashCode()
     {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idCategoria);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.idObtencao);
         return hash;
     }
 
@@ -58,8 +58,8 @@ public class Categoria
             return false;
         }
 
-        final Categoria other = (Categoria) obj;
-        
-        return Objects.equals(this.idCategoria, other.idCategoria);
+        final Obtencao other = (Obtencao) obj;
+        return Objects.equals(this.idObtencao, other.idObtencao);
     }
+
 }

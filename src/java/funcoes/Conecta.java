@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package conexao;
+package funcoes;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -82,16 +82,16 @@ public final class Conecta
 
     public Connection getConexao()
     {
-        return conexao;
+        return this.conexao;
     }
 
     public Statement getStm()
     {
-        return stm;
+        return this.stm;
     }
 
     public String getMsg()
     {
-        return msg;
+        return this.msg;
     }
 }

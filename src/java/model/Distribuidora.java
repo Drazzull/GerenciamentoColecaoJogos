@@ -11,37 +11,37 @@ import java.util.Objects;
  *
  * @author Drazzull
  */
-public class Categoria
+public class Distribuidora
 {
 
-    private Integer idCategoria;
-    private String descricao;
+    private Integer idDistribuidora;
+    private String nome;
 
-    public Integer getIdCategoria()
+    public Integer getIdDistribuidora()
     {
-        return this.idCategoria;
+        return this.idDistribuidora;
     }
 
-    public void setIdCategoria(Integer idCategoria)
+    public void setIdDistribuidora(Integer idDistribuidora)
     {
-        this.idCategoria = idCategoria;
+        this.idDistribuidora = idDistribuidora;
     }
 
-    public String getDescricao()
+    public String getNome()
     {
-        return this.descricao;
+        return this.nome;
     }
 
-    public void setDescricao(String descricao)
+    public void setNome(String nome)
     {
-        this.descricao = descricao;
+        this.nome = nome;
     }
 
     @Override
     public int hashCode()
     {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idCategoria);
+        hash = 59 * hash + Objects.hashCode(this.idDistribuidora);
         return hash;
     }
 
@@ -52,14 +52,13 @@ public class Categoria
         {
             return false;
         }
-
         if (getClass() != obj.getClass())
         {
             return false;
         }
+        final Distribuidora other = (Distribuidora) obj;
 
-        final Categoria other = (Categoria) obj;
-        
-        return Objects.equals(this.idCategoria, other.idCategoria);
+        return Objects.equals(this.idDistribuidora, other.idDistribuidora);
     }
+
 }

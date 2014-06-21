@@ -2,21 +2,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Gerenciamento de Jogos</title>
-        <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"></link>
-        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+        <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css"/>
     </h:head>
     <h:body>
-        <ui:include src="cabecalho.xhtml"></ui:include>
+        <c:set var="nav" value="C" scope="session"/>
+        <ui:include src="cabecalho.xhtml"/>
         <div id="container">
-            <p>Teste de Jogo</p>
-        </div>
+            <h:form>
+                <fieldset>
+                    <legend>Dados do Jogo</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nome:" for="txtNome" />
+                        <h:inputText id="txtNome" styleClass="form-control" value="#{jogoBean.jogo.nome}"/>
+                        <h:outputLabel value="Preço Pago:" for="txtPrecoPago" />
+                        <h:inputText id="txtPrecoPago" onkeypress="return somenteNumeros(event, false);"
+                                     styleClass="form-control" value="#{jogoBean.jogo.precoPago}"/>
+                        <h:outputLabel value="Data de Obtenção:" for="txtDataObtencao" />
+                        <h:inputText id="txtDataObtencao" styleClass="form-control" value="#{jogoBean.jogo.dataObtencao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>  
+                        </h:inputText>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/funcoes.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+                        <h:outputLabel for="cmbCategoria" value="Categoria" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbCategoria"
+                                         value="#{jogoBean.jogo.categoria}"
+                                         converter="categoriaConverter">
+                            <f:selectItem itemLabel="Selecione a categoria..." />
+                            <f:selectItems value="#{jogoBean.categorias}"
+                                           var="e" itemValue="#{e}" itemLabel="#{e.descricao}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="cmbSubCategoria" value="Sub-Categoria" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbSubCategoria"
+                                         value="#{jogoBean.jogo.subCategoria}"
+                                         converter="categoriaConverter">
+                            <f:selectItem itemLabel="Selecione a sub-categoria..." />
+                            <f:selectItems value="#{jogoBean.subCategorias}"
+                                           var="e" itemValue="#{e}" itemLabel="#{e.descricao}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="cmbDistribuidora" value="Distribuidora" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbDistribuidora"
+                                         value="#{jogoBean.jogo.distribuidora}"
+                                         converter="distribuidoraConverter">
+                            <f:selectItem itemLabel="Selecione a distribuidora..." />
+                            <f:selectItems value="#{jogoBean.distribuidoras}"
+                                           var="e" itemValue="#{e}" itemLabel="#{e.nome}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="cmbObtencao" value="Métodos de Obtenção" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbObtencao"
+                                         value="#{jogoBean.jogo.obtencao}"
+                                         converter="obtencaoConverter">
+                            <f:selectItem itemLabel="Selecione o método de obtenção..." />
+                            <f:selectItems value="#{jogoBean.obtencoes}"
+                                           var="e" itemValue="#{e}" itemLabel="#{e.descricao}" />
+                        </h:selectOneMenu>
+
+                        <label>&nbsp; </label>
+                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{jogoBean.gravar}"/>
+                    </h:panelGrid>
+                </fieldset>
+            </h:form>
+        </div>
+        <script src="js/jquery.min.js"/>
+        <script src="js/funcoes.js"/>
+        <script src="js/bootstrap.min.js"/>
+        <script src="js/bootstrap-select.js"></script>
+        <script type="text/javascript">
+                            $(window).on('load', function() {
+                                $('.selectpicker').selectpicker({
+                                    'selectedText': 'cat'
+                                });
+                            });
+        </script>
     </h:body>
 </html>
-

@@ -22,14 +22,14 @@ public class CategoriaBean {
     private final Categoria categoria = new Categoria();
 
     public Categoria getCategoria() {
-        return categoria;
+        return this.categoria;
     }
 
     public void gravar() {
-        categoriaDao.salvar(this.getCategoria());
+        this.categoriaDao.salvar(this.getCategoria());
     }
     
     public List<Categoria> getCategorias() {
-        return categoriaDao.getCategoria();
+        return this.categoriaDao.getCategoria();
     }
 }

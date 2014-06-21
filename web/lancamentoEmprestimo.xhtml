@@ -3,21 +3,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Gerenciamento de Jogos</title>
         <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"/>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css"/>
     </h:head>
     <h:body>
         <c:set var="nav" value="E" scope="session"/>
-        <ui:include src="cabecalho.xhtml"></ui:include>
+        <ui:include src="cabecalho.xhtml"/>
         <div id="container">
-            <p>Teste de Emprestimo</p>
-        </div>
+            <h:form>
+                <fieldset>
+                    <legend>Dados do Emprestimo</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nome da Pessoa:" for="txtNomePessoa" />
+                        <h:inputText id="txtNomePessoa" styleClass="form-control" value="#{emprestimoBean.emprestimo.nomePessoa}"/>
+                        <h:outputLabel value="Data de Emprestimo:" for="txtDataEmprestimo" />
+                        <h:inputText id="txtDataEmprestimo" styleClass="form-control" value="#{emprestimoBean.emprestimo.dataEmprestimo}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>  
+                        </h:inputText>
 
+                        <h:outputLabel for="cmbJogo" value="Jogo" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbJogo"
+                                         value="#{emprestimoBean.emprestimo.jogo}"
+                                         converter="jogoConverter">
+                            <f:selectItem itemLabel="Selecione o Jogo..." />
+                            <f:selectItems value="#{emprestimoBean.jogos}"
+                                           var="e" itemValue="#{e}" itemLabel="#{e.nome}" />
+                        </h:selectOneMenu>
+
+                        <label>&nbsp; </label>
+                        <h:commandButton styleClass="btn btn-default" value="Gravar" action="#{emprestimoBean.gravar}"/>
+                    </h:panelGrid>
+                </fieldset>
+            </h:form>
+        </div>
         <script src="js/jquery.min.js"/>
         <script src="js/funcoes.js"/>
         <script src="js/bootstrap.min.js"/>
+        <script src="js/bootstrap-select.js"></script>
+        <script type="text/javascript">
+            $(window).on('load', function() {
+                $('.selectpicker').selectpicker({
+                    'selectedText': 'cat'
+                });
+            });
+        </script>
     </h:body>
 </html>

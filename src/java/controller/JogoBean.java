@@ -45,7 +45,7 @@ public class JogoBean
 
     public List<Jogo> getJogos()
     {
-        return this.jogoDao.getJogo();
+        return this.jogoDao.getJogo("");
     }
 
     public List<Categoria> getCategorias()

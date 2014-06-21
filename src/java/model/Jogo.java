@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 /**
  *
@@ -57,7 +58,12 @@ public class Jogo implements Serializable
         this.precoPago = precoPago;
     }
 
-    public String getEstado()
+    public char getEstado()
+    {
+        return this.estado;
+    }
+
+    public String getEstadoString()
     {
         if (this.estado == 'N')
         {
@@ -75,11 +81,11 @@ public class Jogo implements Serializable
     {
         return this.dataObtencao;
     }
-    
+
     public String getDataObtencaoString()
     {
         Calendar cal = new GregorianCalendar();
-        cal.setTime(dataObtencao);
+        cal.setTime(this.dataObtencao);
         int ano = cal.get(Calendar.YEAR);
         int mes = cal.get(Calendar.MONTH) + 1;
         int dia = cal.get(Calendar.DAY_OF_MONTH);
@@ -100,7 +106,7 @@ public class Jogo implements Serializable
     {
         this.categoria = categoria;
     }
-    
+
     public Categoria getSubCategoria()
     {
         return this.subCategoria;
@@ -129,6 +135,30 @@ public class Jogo implements Serializable
     public void setObtencao(Obtencao obtencao)
     {
         this.obtencao = obtencao;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.idJogo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Jogo other = (Jogo) obj;
+
+        return Objects.equals(this.idJogo, other.idJogo);
     }
 
 }

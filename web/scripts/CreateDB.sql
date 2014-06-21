@@ -45,6 +45,7 @@ CREATE TABLE Emprestimo (
     idJogo INT NOT NULL,
     NomePessoa VARCHAR(100) NOT NULL,
     dataEmprestimo DATE NOT NULL,
+    devolvido bool,
     PRIMARY KEY (idEmprestimo),
     FOREIGN KEY (idJogo)
      REFERENCES Jogo (idJogo)

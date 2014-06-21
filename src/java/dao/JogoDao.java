@@ -41,15 +41,15 @@ public class JogoDao
         {
             return ("erro:" + c.getMsg());
         }
-        
+
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(jogo.getDataObtencao());
-        
+
         int anoConvertido = calendar.get(Calendar.YEAR);
         int mesConvertido = calendar.get(Calendar.MONTH) + 1;
         int diaConvertido = calendar.get(Calendar.DAY_OF_MONTH);
         String dataConvertida = anoConvertido + "-" + mesConvertido + "-" + diaConvertido;
-        
+
         String idSubCategoria = null;
         if (jogo.getSubCategoria() != null)
         {
@@ -75,7 +75,31 @@ public class JogoDao
 
     }
 
-    public List<Jogo> getJogo()
+    public String alterarEstado(Jogo jogo, char estado)
+    {
+        if (!this.c.getMsg().equals("sucesso"))
+        {
+            return ("erro:" + c.getMsg());
+        }
+
+        String sql = "UPDATE jogo"
+                + " SET estado = '" + estado + "'"
+                + " WHERE idJogo = " + jogo.getIdJogo();
+
+        try
+        {
+            this.c.getStm().execute(sql);
+            jogo.setEstado(estado);
+            return "sucesso";
+        }
+        catch (SQLException ex)
+        {
+            return ("erro:" + ex.getMessage());
+        }
+
+    }
+
+    public List<Jogo> getJogo(String where)
     {
         List<Jogo> lista = new ArrayList<>();
 
@@ -92,7 +116,9 @@ public class JogoDao
                 + " INNER JOIN Categoria ct ON (ct.idCategoria = jo.idCategoria)"
                 + " LEFT JOIN Categoria sct ON (sct.idCategoria = jo.idSubCategoria)"
                 + " INNER JOIN Distribuidora dt ON (dt.idDistribuidora = jo.idDistribuidora)"
-                + " INNER JOIN Obtencao ot ON (ot.idObtencao = jo.idObtencao)";
+                + " INNER JOIN Obtencao ot ON (ot.idObtencao = jo.idObtencao)"
+                + where
+                + " ORDER BY jo.idJogo";
 
         // Definido o Statement, executamos o comando no banco de dados.
         ResultSet rs;
@@ -146,5 +172,76 @@ public class JogoDao
         }
 
         return lista;
+    }
+
+    public Jogo getJogoPorCodigo(Long codigo)
+    {
+        Jogo jogo = new Jogo();
+
+        if (!this.c.getMsg().equals("sucesso"))
+        {
+            return jogo;
+        }
+
+        // Vamos preparar o comando SQL:
+        String sql = "select jo.*, ct.descricao AS desCategoria,"
+                + " sct.descricao AS desSubCategoria,"
+                + " dt.nome AS nomeDistribuidora, ot.descricao AS desObtencao"
+                + " FROM Jogo jo"
+                + " INNER JOIN Categoria ct ON (ct.idCategoria = jo.idCategoria)"
+                + " LEFT JOIN Categoria sct ON (sct.idCategoria = jo.idSubCategoria)"
+                + " INNER JOIN Distribuidora dt ON (dt.idDistribuidora = jo.idDistribuidora)"
+                + " INNER JOIN Obtencao ot ON (ot.idObtencao = jo.idObtencao)"
+                + " WHERE jo.idJogo =" + codigo
+                + " ORDER BY jo.idJogo";
+
+        // Definido o Statement, executamos o comando no banco de dados.
+        ResultSet rs;
+
+        try
+        {
+            rs = this.c.getStm().executeQuery(sql);
+
+            while (rs.next())
+            {
+                //leitura dos campos da tabela em variáveis
+                int idJogo = rs.getInt("idJogo");
+                String desCategoria = rs.getString("desCategoria");
+                String desSubCategoria = rs.getString("desSubCategoria");
+                String nomeDistribuidora = rs.getString("nomeDistribuidora");
+                String desObtencao = rs.getString("desObtencao");
+                String nome = rs.getString("nome");
+                double precoPago = rs.getDouble("precoPago");
+                char estado = rs.getString("estado").charAt(0);
+                Date dataObtencao = rs.getDate("dataObtencao");
+
+                Categoria categoria = new Categoria();
+                categoria.setDescricao(desCategoria);
+
+                Categoria subCategoria = new Categoria();
+                subCategoria.setDescricao(desSubCategoria);
+
+                Distribuidora distribuidora = new Distribuidora();
+                distribuidora.setNome(nomeDistribuidora);
+
+                Obtencao obtencao = new Obtencao();
+                obtencao.setDescricao(desObtencao);
+
+                jogo.setIdJogo(idJogo);
+                jogo.setNome(nome);
+                jogo.setPrecoPago(precoPago);
+                jogo.setEstado(estado);
+                jogo.setDataObtencao(dataObtencao);
+                jogo.setCategoria(categoria);
+                jogo.setSubCategoria(subCategoria);
+                jogo.setDistribuidora(distribuidora);
+                jogo.setObtencao(obtencao);
+            }
+        }
+        catch (SQLException ex)
+        {
+
+        }
+        return jogo;
     }
 }

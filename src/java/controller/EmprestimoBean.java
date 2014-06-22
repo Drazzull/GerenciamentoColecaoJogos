@@ -43,7 +43,17 @@ public class EmprestimoBean
 
     public List<Emprestimo> getEmprestimos()
     {
-        return this.emprestimoDao.getEmprestimo();
+        return this.emprestimoDao.getEmprestimo("", 'S');
+    }
+    
+    public List<Emprestimo> getEmprestimosPorNome(String filtro)
+    {
+        return this.emprestimoDao.getEmprestimo(filtro, 'P');
+    }
+    
+    public List<Emprestimo> getEmprestimosPorJogo(String filtro)
+    {
+        return this.emprestimoDao.getEmprestimo(filtro, 'J');
     }
 
     public List<Jogo> getJogos()

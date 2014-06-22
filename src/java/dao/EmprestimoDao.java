@@ -52,7 +52,7 @@ public class EmprestimoDao
                 + " VALUES (" + emprestimo.getJogo().getIdJogo() + ", \""
                 + emprestimo.getNomePessoa() + "\", '" + dataConvertida + "',"
                 + " false)";
-        
+
         try
         {
             this.c.getStm().execute(sql);
@@ -97,7 +97,7 @@ public class EmprestimoDao
 
     }
 
-    public List<Emprestimo> getEmprestimo()
+    public List<Emprestimo> getEmprestimo(String filtro, char tipoFiltro)
     {
         List<Emprestimo> lista = new ArrayList<>();
 
@@ -106,10 +106,23 @@ public class EmprestimoDao
             return lista;
         }
 
+        String where = "";
+        switch (tipoFiltro)
+        {
+            case 'J':
+                where = " WHERE jo.nome LIKE '%" + filtro.trim() + "%'";
+                break;
+
+            case 'P':
+                where = " WHERE em.nomePessoa LIKE '%" + filtro.trim() + "%'";
+                break;
+        }
+
         // Vamos preparar o comando SQL:
         String sql = "select em.*, jo.nome AS nomeJogo"
                 + " FROM Emprestimo em"
                 + " INNER JOIN Jogo jo ON (jo.idJogo = em.idJogo)"
+                + where
                 + " ORDER BY em.idEmprestimo";
 
         // Definido o Statement, executamos o comando no banco de dados.

@@ -14,7 +14,7 @@ and open the template in the editor.
         <title>Gerenciamento de Jogos</title>
         <link rel="stylesheet" type="text/css" href="css/Estilo.css" media="all"/>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap-select.css"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css"/>
     </h:head>
     <h:body>
         <c:set var="nav" value="L" scope="session"/>
@@ -22,10 +22,103 @@ and open the template in the editor.
         <div id="container">
             <h:form>
                 <fieldset>
-                    <legend>Listagem de Emprestimos</legend>
+                    <legend>Filtros a serem Aplicados</legend>
 
-                    <h:dataTable id="itens"
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-2 control-label" for="cmbStatus" value="Status" />
+                        <h:selectOneMenu styleClass="selectpicker" id="cmbStatus"
+                                         value="#{status}">
+                            <f:selectItem itemValue="" itemLabel="Selecione o tipo do filtro..." />
+                            <f:selectItem itemValue="P" itemLabel="Nome da Pessoa"/>
+                            <f:selectItem itemValue="J" itemLabel="Nome do Jogo"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <h:inputText id="txtFiltrar" styleClass="form-control" value="#{filtro}"/>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-2 control-label" value="" for="btnFiltrar"/>
+                        <h:commandButton styleClass="btn btn-default" id="btnFiltrar" value="Filtrar"/>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Listagem de Emprestimos</legend>
+                    <h:dataTable rendered='#{status == null}' id="itens"
                                  value="#{emprestimoBean.emprestimos}"
+                                 var="item" border="1" width="100%">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Código" />
+                            </f:facet>
+                            <h:outputText value="#{item.idEmprestimo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nome da Pessoa" />
+                            </f:facet>
+                            <h:outputText value="#{item.nomePessoa}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Jogo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jogo.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Data do Empréstimo" />
+                            </f:facet>
+                            <h:outputText value="#{item.dataEmprestimoString}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado do Jogo" />
+                            </f:facet>
+
+                            <h:commandButton styleClass="btn btn-default" value="#{!item.devolvido ? 'Devolver' : 'Devolvido'}"
+                                             disabled="#{item.devolvido}" action="#{emprestimoBean.devolver(item)}"/>
+                        </h:column>
+                    </h:dataTable>
+
+                    <h:dataTable rendered='#{status == "P"}' id="itensNome"
+                                 value="#{emprestimoBean.getEmprestimosPorNome(filtro)}"
+                                 var="item" border="1" width="100%">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Código" />
+                            </f:facet>
+                            <h:outputText value="#{item.idEmprestimo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nome da Pessoa" />
+                            </f:facet>
+                            <h:outputText value="#{item.nomePessoa}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Jogo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jogo.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Data do Empréstimo" />
+                            </f:facet>
+                            <h:outputText value="#{item.dataEmprestimoString}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado do Jogo" />
+                            </f:facet>
+
+                            <h:commandButton styleClass="btn btn-default" value="#{!item.devolvido ? 'Devolver' : 'Devolvido'}"
+                                             disabled="#{item.devolvido}" action="#{emprestimoBean.devolver(item)}"/>
+                        </h:column>
+                    </h:dataTable>
+
+                    <h:dataTable rendered='#{status == "J"}' id="itensJogo"
+                                 value="#{emprestimoBean.getEmprestimosPorJogo(filtro)}"
                                  var="item" border="1" width="100%">
                         <h:column>
                             <f:facet name="header">
@@ -66,5 +159,13 @@ and open the template in the editor.
         <script src="js/jquery.min.js"/>
         <script src="js/funcoes.js"/>
         <script src="js/bootstrap.min.js"/>
+        <script src="js/bootstrap-select.js"></script>
+        <script type="text/javascript">
+            $(window).on('load', function() {
+                $('.selectpicker').selectpicker({
+                    'selectedText': 'cat'
+                });
+            });
+        </script>
     </h:body>
 </html>

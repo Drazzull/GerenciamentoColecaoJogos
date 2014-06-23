@@ -20,23 +20,30 @@ and open the template in the editor.
         <c:set var="nav" value="L" scope="session"/>
         <ui:include src="cabecalho.xhtml"/>
         <div id="container">
-            <h:form>
+            <h:form styleClass="form-horizontal">
                 <fieldset>
                     <legend>Filtros a serem Aplicados</legend>
-
                     <div class="form-group">
                         <h:outputLabel styleClass="col-sm-2 control-label" for="cmbStatus" value="Status" />
-                        <h:selectOneMenu styleClass="selectpicker" id="cmbStatus"
-                                         value="#{status}">
-                            <f:selectItem itemValue="" itemLabel="Selecione o tipo do filtro..." />
-                            <f:selectItem itemValue="P" itemLabel="Nome da Pessoa"/>
-                            <f:selectItem itemValue="J" itemLabel="Nome do Jogo"/>
-                        </h:selectOneMenu>
+                        <div class="col-sm-10">
+                            <h:selectOneMenu styleClass="selectpicker" id="cmbStatus"
+                                             value="#{status}">
+                                <f:selectItem itemValue="" itemLabel="Selecione o tipo do filtro..." />
+                                <f:selectItem itemValue="P" itemLabel="Nome da Pessoa"/>
+                                <f:selectItem itemValue="J" itemLabel="Nome do Jogo"/>
+                            </h:selectOneMenu>
+                        </div>
                     </div>
-                    <h:inputText id="txtFiltrar" styleClass="form-control" value="#{filtro}"/>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-2 control-label" value="" for="btnFiltrar"/>
+                        <h:outputLabel for="txtFiltrar" styleClass="col-sm-2 control-label" value="Filtro" />
+                        <div class="col-sm-10">
+                            <h:inputText id="txtFiltrar" styleClass="form-control" value="#{filtro}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel value="" for="btnFiltrar"/>
                         <h:commandButton styleClass="btn btn-default" id="btnFiltrar" value="Filtrar"/>
                     </div>
                 </fieldset>
